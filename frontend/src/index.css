@@ -1,0 +1,263 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@theme {
+  /* HiveMind Dark Theme — Amber/Honey accent on deep black */
+  --color-ai-accent: #FFB300;
+  --color-ai-accent-hover: #FFA000;
+  --color-ai-accent-glow: rgba(255, 179, 0, 0.25);
+  --color-ai-accent-dim: rgba(255, 179, 0, 0.08);
+  --color-success: #4ADE80;
+  --color-bg-base: #050505;
+  --color-bg-surface: #0C0C0E;
+  --color-bg-elevated: #141416;
+  --color-bg-card: #18181B;
+  --color-bubble-user: #1A1A1E;
+  --color-bubble-ai: #0A0A0C;
+  --color-border-subtle: #27272A;
+  --color-border-accent: rgba(255, 179, 0, 0.15);
+  --color-text-primary: #FAFAFA;
+  --color-text-secondary: #A1A1AA;
+  --color-text-muted: #71717A;
+  --font-sans: "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* ============================================ */
+/*  Global Styles                               */
+/* ============================================ */
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+}
+
+/* ============================================ */
+/*  HiveMind Header Branding                    */
+/* ============================================ */
+
+.hivemind-header {
+  background: linear-gradient(135deg, #0A0A0A 0%, #141416 50%, #0A0A0A 100%);
+  border-bottom: 1px solid var(--color-border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Honeycomb shimmer animation behind the header */
+.hivemind-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 50%,
+    var(--color-ai-accent-dim) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+.hivemind-header:hover::before {
+  opacity: 1;
+}
+
+/* The brand title */
+.hivemind-title {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #FFB300 0%, #FFD54F 40%, #FFA000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease;
+}
+.hivemind-title:hover {
+  filter: brightness(1.15);
+  text-shadow: 0 0 20px var(--color-ai-accent-glow);
+}
+
+/* Subtitle */
+.hivemind-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+/* Hive emoji bounce */
+.hivemind-emoji {
+  display: inline-block;
+  font-size: 1.75rem;
+  animation: hivePulse 3s ease-in-out infinite;
+}
+
+@keyframes hivePulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  25% { transform: scale(1.08) rotate(-3deg); }
+  50% { transform: scale(1) rotate(0deg); }
+  75% { transform: scale(1.08) rotate(3deg); }
+}
+
+/* ============================================ */
+/*  Sidebar Styles                              */
+/* ============================================ */
+
+.hivemind-sidebar {
+  background: linear-gradient(180deg, #0A0A0C 0%, #050505 100%);
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+.hivemind-sidebar-btn {
+  transition: all 0.2s ease;
+}
+.hivemind-sidebar-btn:hover {
+  background: var(--color-ai-accent-dim);
+  border-left: 2px solid var(--color-ai-accent);
+}
+
+.hivemind-new-chat-btn {
+  background: linear-gradient(135deg, var(--color-ai-accent) 0%, #FFA000 100%);
+  color: #0A0A0A;
+  font-weight: 600;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 12px var(--color-ai-accent-glow);
+}
+.hivemind-new-chat-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px var(--color-ai-accent-glow);
+}
+
+/* ============================================ */
+/*  Chat Bubbles                                */
+/* ============================================ */
+
+.hivemind-bubble-user {
+  background: var(--color-bubble-user);
+  border: 1px solid var(--color-border-subtle);
+  transition: border-color 0.2s ease;
+}
+.hivemind-bubble-user:hover {
+  border-color: var(--color-border-accent);
+}
+
+.hivemind-bubble-ai {
+  background: var(--color-bubble-ai);
+  border: 1px solid var(--color-border-subtle);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.hivemind-bubble-ai:hover {
+  border-color: var(--color-border-accent);
+  box-shadow: 0 0 15px var(--color-ai-accent-dim);
+}
+
+/* ============================================ */
+/*  Mode Toggle Buttons                         */
+/* ============================================ */
+
+.hivemind-mode-toggle {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.hivemind-mode-active {
+  background: var(--color-bg-card);
+  color: var(--color-ai-accent);
+  border: 1px solid var(--color-ai-accent);
+  box-shadow: 0 0 10px var(--color-ai-accent-dim);
+}
+
+/* ============================================ */
+/*  Input & Footer                              */
+/* ============================================ */
+
+.hivemind-footer {
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.hivemind-input {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.hivemind-input:focus-within {
+  border-color: var(--color-ai-accent);
+  box-shadow: 0 0 12px var(--color-ai-accent-dim);
+}
+
+.hivemind-send-btn {
+  background: linear-gradient(135deg, var(--color-ai-accent) 0%, #FFA000 100%);
+  color: #0A0A0A;
+  transition: all 0.25s ease;
+}
+.hivemind-send-btn:hover {
+  box-shadow: 0 2px 12px var(--color-ai-accent-glow);
+}
+
+/* ============================================ */
+/*  Steps / Agent Cards                         */
+/* ============================================ */
+
+.hivemind-step-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
+  transition: border-color 0.2s ease;
+}
+.hivemind-step-card:hover {
+  border-color: var(--color-border-accent);
+}
+
+.hivemind-step-running {
+  background: var(--color-ai-accent-dim);
+}
+
+/* ============================================ */
+/*  Scrollbar                                   */
+/* ============================================ */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-base);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-subtle);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* ============================================ */
+/*  Delete Modal                                */
+/* ============================================ */
+
+.hivemind-modal-overlay {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+}
+
+.hivemind-modal {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.hivemind-delete-btn {
+  background: #DC2626;
+  transition: all 0.2s ease;
+}
+.hivemind-delete-btn:hover {
+  background: #B91C1C;
+  box-shadow: 0 2px 12px rgba(220, 38, 38, 0.3);
+}

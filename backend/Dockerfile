@@ -1,0 +1,26 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    libpq-dev \
+    gcc \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install Playwright dependencies (since it's in requirements.txt)
+RUN playwright install --with-deps chromium
+
+COPY . .
+
+# Ensure UTF-8 encoding for text parsing
+ENV PYTHONIOENCODING=utf-8
+
+# Use Railway's dynamic PORT environment variable (default to 8000)
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}

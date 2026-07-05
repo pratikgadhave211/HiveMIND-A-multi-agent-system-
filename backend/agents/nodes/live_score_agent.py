@@ -1,0 +1,1 @@
+from agents.nodes.generic_agent import generic_agent_node as live_score_agent_node

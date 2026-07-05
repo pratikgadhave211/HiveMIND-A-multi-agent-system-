@@ -1,0 +1,1 @@
+from agents.nodes.generic_agent import generic_agent_node as finance_agent_node
