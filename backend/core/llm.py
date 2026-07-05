@@ -5,8 +5,9 @@ from tavily import TavilyClient
 
 load_dotenv()
 
-# Hardcoded API key from original script, ideally should be in .env
-os.environ["NVIDIA_API_KEY"] = "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"
+# API key is securely loaded from .env via load_dotenv()
+if not os.environ.get("NVIDIA_API_KEY"):
+    print("Warning: NVIDIA_API_KEY not found in environment.")
 
 # Planner / Orchestrator / Fast Search
 llm = ChatNVIDIA(
