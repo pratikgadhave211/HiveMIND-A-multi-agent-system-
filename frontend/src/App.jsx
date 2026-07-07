@@ -4,6 +4,8 @@ import { Shield, Send, CheckCircle2, Loader2, ChevronDown, DollarSign, AlertTria
 import ResearchBoard from './components/ResearchBoard';
 import TypewriterEffect from './components/TypewriterEffect';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+
 const AGENT_LABELS = {
   intent_router: 'Intent Router',
   fast_search: 'Fast Search',
@@ -140,7 +142,7 @@ export default function App() {
     
     setIsUploading(true);
     try {
-      const response = await fetch("http://localhost:8000/api/upload", {
+      const response = await fetch(`${API_BASE_URL}/api/upload`, {
         method: "POST",
         body: formData,
       });
@@ -234,7 +236,7 @@ export default function App() {
       setMessages([]);
       setLoading(true);
       try {
-        const response = await fetch(`http://localhost:8000/api/history/${id}`);
+        const response = await fetch(`${API_BASE_URL}/api/history/${id}`);
         const data = await response.json();
 
         if (data && data.user_query && data.final_report) {
@@ -286,7 +288,7 @@ export default function App() {
     setInput('');
     setLoading(true);
 
-    const es = new EventSource(`http://localhost:8000/api/stream?message=${encodeURIComponent(query)}&mode=${searchMode}&thread_id=${threadId}`);
+    const es = new EventSource(`${API_BASE_URL}/api/stream?message=${encodeURIComponent(query)}&mode=${searchMode}&thread_id=${threadId}`);
 
     stopProcessRef.current = () => {
       es.close();
