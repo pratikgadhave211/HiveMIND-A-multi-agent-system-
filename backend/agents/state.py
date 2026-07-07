@@ -1,7 +1,7 @@
 from typing import TypedDict, List, Annotated, Literal, Optional
 from pydantic import BaseModel, Field
 import operator
-from langgraph.graph.message import add_messages
+
 from langchain_core.messages import BaseMessage
 
 def clearable_add(a: list | None, b: list | str | None) -> list:
@@ -218,7 +218,7 @@ class AssignmentState(TypedDict):
 
 class FINALSTATE(TypedDict):
     user_query: str
-    messages: Annotated[list[BaseMessage], add_messages]
+    messages: list[BaseMessage]
     search_mode: Literal["simple", "complex"]
     intent_output: IntentOutput
 

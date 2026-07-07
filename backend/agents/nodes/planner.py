@@ -1,6 +1,6 @@
 import time
 from agents.state import FINALSTATE, AnswerContract, PlannerOutput, VerificationStrategy
-from langchain_core.messages import SystemMessage
+from langchain_core.messages import SystemMessage, HumanMessage
 from core.llm import llm, backup_model
 from core.utils import safe_llm_call
 
@@ -74,9 +74,9 @@ Return strictly the structured output.
 """
         messages_to_send = [SystemMessage(content=system_prompt)]
         
-        # Append the entire chat history (which includes the current query at the end)
-        messages = state.get("messages", [])
-        messages_to_send.extend(messages)
+        # Append the current query (coreferences already resolved by query_rewriter)
+        user_query = state.get("user_query", "")
+        messages_to_send.append(HumanMessage(content=user_query))
         # Build AnswerContract via LLM
         structured_llm = llm.with_structured_output(AnswerContract)
         backup_structured_llm = backup_model.with_structured_output(AnswerContract)

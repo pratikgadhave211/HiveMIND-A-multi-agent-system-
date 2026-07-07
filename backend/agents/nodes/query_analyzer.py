@@ -71,9 +71,9 @@ Return strictly the structured output.
 """
         messages_to_send = [SystemMessage(content=system_prompt)]
         
-        # Append the entire chat history (which includes the current query at the end)
-        messages = state.get("messages", [])
-        messages_to_send.extend(messages)
+        # Append the current query (coreferences already resolved by query_rewriter)
+        user_query = state.get("user_query", "")
+        messages_to_send.append(HumanMessage(content=user_query))
 
         result = await safe_llm_call(messages_to_send, structured_llm, backup_structured_llm)
         print(f"Query Analyzer took {time.time()-start:.2f}s")

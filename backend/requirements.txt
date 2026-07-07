@@ -6,7 +6,7 @@ langchain
 gradio
 tavily-python
 langchain-nvidia-ai-endpoints
-playwright
+
 arxiv
 httpx
 duckduckgo-search
