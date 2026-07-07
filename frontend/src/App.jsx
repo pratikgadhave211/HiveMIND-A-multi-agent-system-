@@ -4,7 +4,7 @@ import { Shield, Send, CheckCircle2, Loader2, ChevronDown, DollarSign, AlertTria
 import ResearchBoard from './components/ResearchBoard';
 import TypewriterEffect from './components/TypewriterEffect';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8000').replace(/\/+$/, '');
 
 const AGENT_LABELS = {
   intent_router: 'Intent Router',
